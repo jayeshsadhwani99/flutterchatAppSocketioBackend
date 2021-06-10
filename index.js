@@ -31,14 +31,26 @@ app.use(cors());
 
 // When a connection event fires, or a connection
 // is established, we define a callback method
-io.on("Connection", (socket) => {
+io.on("connection", (socket) => {
     console.log("Connected")
+
+    // Print the ID of the client
+    console.log(socket.id, " JOINED");
+
+    // Listen to the event we created on the frontend ( test )
+    socket.on("/test", (msg) => {
+        // See what message is passed from the frontend
+        console.log(msg);
+    })
 });
 
 // Listen to the server on the corresponding PORT
 // We just provide the method with the PORT and
 // have an additional callback method 
 // (Function that is fired when server is started)
-server.listen(port, () => {
+
+// To launch the server on the current IP address,
+// We use 0.0.0.0
+server.listen(port, "0.0.0.0", () => {
     console.log(`Server running on PORT ${port}`);
 })
