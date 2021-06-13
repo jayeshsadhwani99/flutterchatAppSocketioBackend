@@ -57,7 +57,14 @@ io.on("connection", (socket) => {
 
     // Whenever a message is sent, this event is called
     socket.on("message", (msg) => {
+        // Show the object that returned
         console.log(msg)
+
+        // Access the values
+        let targetId = msg.targetId;
+        if(clients[targetId])
+        clients[targetId].emit("message", msg);
+
     })
 });
 
